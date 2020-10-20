@@ -8,7 +8,7 @@ By Margaret Beaumont-Savvas
 //position and size of our avatar
 let avatarX;
 let avatarY;
-let avatarSize= 50;
+let avatarSize= 100;
 
 //speed and velocity of our avatar
 let avatarSpeed= 10;
@@ -18,10 +18,10 @@ let avatarVY= 0;
 // position and size of the enemy ghost
 let enemyX;
 let enemyY;
-let enemySize= 85;
+let enemySize= 50;
 
 // Speed and velocity of enemy ghosts
-let enemySpeed = 5;
+let enemySpeed = 100;
 let enemyVX= 5;
 
 //How many dodges the player has made
@@ -29,7 +29,7 @@ let dodges = 0;
 
 // Adding speed and size to the enemy ghost whenever it is dodged.
 let enemyAcceleration= 1;
-let enemyEnlarge = 10;
+let enemyEnlarge = 100;
 
 //creating the main avatar (you), the enemy ghost, pink dust points and background
 let avatarghost;
@@ -47,7 +47,7 @@ function preload () {
 
 //creating canvas and positioning the avatar, enemy ghost and pink dust
 function setup() {
-  createCanvas (800,800);
+  createCanvas (1000,700);
 
   //placing avatar in center
   avatarX = width/2;
