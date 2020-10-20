@@ -36,13 +36,13 @@ let avatarghost;
 let enemyghost;
 let spookybackground;
 
-+ let on = false;
+let on = false;
 
 //adding preloads for avater, enemyghost and spookybackground
 function preload () {
   avatarghost = loadImage("assets/images/avatarghost.png");
   enemyghost = loadImage("assets/images/enemyghost.png");
-  spookybackground = loadImage("assests/images/spookybackground.jpg")
+  spookybackground = loadImage("assets/images/spookybackground.jpg")
 }
 
 //creating canvas and positioning the avatar, enemy ghost and pink dust
