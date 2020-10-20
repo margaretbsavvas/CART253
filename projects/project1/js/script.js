@@ -18,7 +18,7 @@ let avatarVY= 0;
 // position and size of the enemy ghost
 let enemyX;
 let enemyY;
-let enemySize= 50;
+let enemySize= 85;
 
 // Speed and velocity of enemy ghosts
 let enemySpeed = 5;
@@ -29,7 +29,7 @@ let dodges = 0;
 
 // Adding speed and size to the enemy ghost whenever it is dodged.
 let enemyAcceleration= 1;
-let enemyEnlarge = 3;
+let enemyEnlarge = 10;
 
 //creating the main avatar (you), the enemy ghost, pink dust points and background
 let avatarghost;
@@ -79,8 +79,8 @@ function draw() {
     avatarVX = -avatarSpeed;
   }
   else if (keyIsDown(RIGHT_ARROW)) {
-    AvatarVX = avatarSpeed;
-    console.loq(avatarSpeed);
+    avatarVX = avatarSpeed;
+    console.log (avatarSpeed);
   }
 
   //up and down
