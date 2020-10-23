@@ -22,7 +22,7 @@ let pinkdustY;
 let pinkdustSize = 50;
 
 //speed and velocity of the pink pinkdust
-let pinkdustSpeed= 5;
+let pinkdustSpeed= -5;
 let pinkdustVX= 0;
 let pinkdustVY= 0;
 
@@ -32,15 +32,15 @@ let enemyY;
 let enemySize= 50;
 
 // Speed and velocity of enemy ghosts
-let enemySpeed = 100;
+let enemySpeed = -100;
 let enemyVX= 5;
 
 // Adding speed and size to the enemy ghost whenever it is dodged.
 let enemyAcceleration= 1;
 let enemyEnlarge = 100;
 
-//score counter for each time avatar catches a pink dust 
-let score = 0
+//score counter for each time avatar catches a pink dust
+let score = 0;
 
 //creating the main avatar (you), the enemy ghost, pink dust points and background
 let avatarghost;
@@ -58,18 +58,18 @@ function preload () {
 
 //creating canvas and positioning the avatar, enemy ghost and pink dust
 function setup() {
-  createCanvas (1000,700);
+  createCanvas (1000,600);
 
   //placing avatar in center
   avatarX = width/2;
   avatarY = width/2;
 
  //placing enemy ghost at a random coordinate
- enemyX = 0;
+ enemyX = width;
  enemyY= random (0, height);
 
  //placing pink dust point at a random coordinate
- pinkdustX= 0;
+ pinkdustX= width;
  pinkdustY= random (0,height);
 
  //no stroke for a cleaner look
@@ -124,17 +124,19 @@ function draw() {
         //player loses
         console.log ("GAME OVER!");
         //reset enemy position
-        enemyX = 0;
+        enemyX = width;
         enemyY = random (0,height);
         //reset enemy size and Speed
-        enemySpeed=5;
+        enemySpeed= -5;
         enemySize= 50;
         //avatar resest
         avatarX = width/2;
         avatarY = height/2;
         // pink dust resets
-        pinkdustX = 0;
+        pinkdustX = width;
         pinkdustY = random (0,height);
+        //score resets
+        score = 0
        }
 
     // if avatar and pink dust overlap, pink dust resets and avatar stays
@@ -142,13 +144,13 @@ function draw() {
        if (dist(pinkdustX,pinkdustY, avatarX, avatarY)
            < pinkdustSize/2 + avatarSize/2) {
             // point achieved!
-            console.log("Poof!");
-            score= score +1
+            console.log("POOF!");
+            score= score +1;
             //reset pink dust position
-            pinkdustX = 0;
+            pinkdustX = width;
             pinkdustY = random (0,height);
             //reset pinkust
-            pinkdustSpeed=5;
+            pinkdustSpeed= -5;
             pinkdustSize= 50;
            }
 
@@ -157,24 +159,49 @@ function draw() {
       avatarY > height) {
         //off screen is losing the same way
         console.log("GAME OVER!");
-        enemyX= 0;
+        enemyX = width;
         enemyY= random (0,height);
+        //reset the avatar
         avatarX= width/2;
         avatarY= height/2;
+        //reset the pink pinkdust
+        pinkdustX = width;
+        pinkdustY= random(0,height);
+        //reset the score counter
         score = 0;
       }
     // whenever enemy moves all the way across the screen,
-    //update the counter and reposition a new enemy
-    if (enemyX > width) {
-       enemyX = 0;
+    //speed and size of enemy increases
+    if (enemyX < 0) {
+       enemyX = width;
        enemyY = random(0,height);
        //with each dodge, the enemy's speed and size increases
        enemySpeed += enemyAcceleration;
        enemySize += enemyEnlarge;
-       //reset pink dust
-       pinkdustX= 0;
-       pinkdustY= random(0,height);
       }
+      //pink dust remains the same
+      if (pinkdustX < 0) {
+         pinkdustX = width;
+         pinkdustY = random(0,height);
+        }
+
+      //When avatar collects 10 points, you win!
+      if (score == 2){
+        console.log("YOU WIN");
+
+        //moving pink dust off screen
+        pinkdustX = width + 100;
+        pinkdustSpeed = 0;
+        //moving enemy off screen
+        enemyX = width + enemySize;
+        enemySpeed = 0;
+        //"YOU ESCAPED" end game title screen
+        fill(255,102,153);
+        text("YOU ESCAPED!", width/2, height/2, width/4, height/16);
+
+        score = 0 ;
+      }
+
 
   //Display background, avatar, enemy and points image
    image(spookybackground, 0, 0, width, height);
@@ -182,11 +209,12 @@ function draw() {
    image(avatarghost, avatarX, avatarY, avatarSize, avatarSize);
    image(enemyghost, enemyX, enemyY, enemySize, enemySize);
 
+   //number of successful pink dust collected. Score is in pink and centered
+   //on the top of screen
+     console.log("score");
+     fill(255,102,153);
+     text(score, width/3-30, height/50, width/4, height/16);
 
- //number of successful dodges displayed. Score is in pink
-   console.log(score);
-   fill(255,102,153);
-   text(score, width/2-20, height/40, width/2, height/15);
 
 
 }
