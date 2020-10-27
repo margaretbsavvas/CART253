@@ -17,3 +17,4 @@ Using the arrow keys, the goal is to avoid all the evil ghosts and collect a tot
 BEWARE:
 1- with every dodge, the enemy ghost's speed will increase as well as its size!
 2- Everytime player moves off screen, it's game over!
+ 
