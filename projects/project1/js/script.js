@@ -50,9 +50,11 @@ let pinkdust;
 
 
 //variables for title screen, game screen, and ending screen
-let titleString = "PRESS ENTER TO BEGIN";
+let titleString = "ESCAPE PURGATORY";
+let enterString = "PRESS ENTER TO BEGIN";
 let endingString = "YOU ESCAPED!";
-let refreshString = "Refresh to start again"
+let refreshString = "Refresh to start again";
+let gameoverString = "GAME OVER!";
 
 let offscreen;
 
@@ -100,12 +102,15 @@ function draw() {
       title();
   }
   //Mini game screen
-  else if (state === `game`){
-      game();
+  else if (state === `gameon`){
+      gameon();
   }
   //ending screen
   else if (state === `ending`){
       ending();
+  }
+  else if (state === `gameover`){
+      gameover();
   }
 }
 
@@ -114,11 +119,14 @@ function draw() {
      background(102, 119, 133);
      background (offscreen, 0, 0, width, height);
      fill(255,102,153);
-     text(titleString, width /2, height /2);
+     textSize(50);
+     text(titleString, width /2, height /2.5);
+     textSize(30);
+     text(enterString, width/2, height/2);
   }
 
 //animation for mini game
-function game() {
+function gameon() {
   //binding keys to move avatar and setting avatar's velocity on x and y
   if (keyIsDown(LEFT_ARROW)) {
     avatarVX = -avatarSpeed;
@@ -164,7 +172,7 @@ function game() {
         //score resets
         score = 0;
         //reset to title screeen
-        state = `title`;
+        state = `gameover`;
        }
        // enemy moves at enemy Speed and positions enemy based on velocity
        enemyVX = enemySpeed;
@@ -203,8 +211,10 @@ function game() {
         pinkdustY= random(0,height);
         //reset the score counter
         score = 0;
-        state = `title`;
+
+        state = `gameover`;
       }
+
     // whenever enemy moves all the way across the screen,
     //speed and size of enemy increases
     if (enemyX < 0) {
@@ -221,7 +231,7 @@ function game() {
         }
 
       //When avatar collects 10 points, you win!
-      if (score == 1){
+      if (score == 5){
         console.log("YOU WIN");
 
         //moving pink dust off screen
@@ -245,11 +255,11 @@ function game() {
      //number of successful pink dust collected. Score is in pink and centered
      //on the top of screen
      console.log("score");
-     fill(255,102,153);
-     text(score, width/2, height/2);
-     textFont('calibri');
-     textAlign(RIGHT,BOTTOM);
-     textSize(50);
+     fill(0);
+     text(score, width/2, height/8);
+     textFont('Helvetic');
+     textAlign(CENTER,TOP);
+     textSize(70);
      }
 
   function ending() {
@@ -257,13 +267,27 @@ function game() {
     background (offscreen, 0, 0, width, height);
     fill(255,102,153);
     textFont('Helvetic');
+    textSize(50);
     text(endingString, width/2, height/2.5);
+    textSize(30);
     text(refreshString, width/2, width/2.5);
     textAlign(CENTER,CENTER);
     }
 
+  function gameover (){
+    background(141, 181, 214);
+    background (offscreen, 0, 0, width, height);
+    fill(255,102,153);
+    textFont('Helvetic');
+    textSize(50);
+    text(gameoverString, width/2, height/2.5);
+    textSize(30);
+    text(refreshString, width/2, width/2.5);
+    textAlign(CENTER,CENTER);
+  }
+
   function keyPressed(){
     if (state ===`title`) {
-      state = `game`;
+      state = `gameon`;
     }
   }
